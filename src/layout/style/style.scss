@@ -145,3 +145,26 @@ hr {
   margin: $base-relative-spacing-unit * 2 0;
   border: $base-border solid var(--yellow1);
 }
+
+.post-page {
+  .post-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0px -1px 0px 0px #1d1e21;
+    background: none;
+    margin-bottom: 5%;
+    width: 90%;
+  }
+
+  .post-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    .post-info {
+      margin-bottom: 2%;
+    }
+
+    .post-image {
+      border-radius: 1%;
+    }
+  }
+}
