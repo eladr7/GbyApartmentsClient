@@ -7,9 +7,9 @@
     justify-content: center;
     align-items: stretch;
 
-    position: fixed;
+    position: relative;
     bottom: 0;
-    left: 40%;
+    margin-top: 10%;
 
     margin-bottom: $spacing-large;
     max-width: $site-max-width;
@@ -23,8 +23,8 @@
         > a {
             text-align: center;
             transition: transform $transition-fast-easein;
-            margin-left: 30%;
-            margin-right: 30%;
+            // margin-left: 30%;
+            // margin-right: 30%;
             &:hover {
                 @include hoverScale(1.3);
             }

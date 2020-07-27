@@ -19,8 +19,8 @@ import Footer from "./layoutComps/footer"
 
 
 export default function Layout({ children, pageTitle, headerText, postExcerpt = null }) {
-    const data = useStaticQuery(
-        graphql`
+  const data = useStaticQuery(
+    graphql`
       query {
         site {
           siteMetadata {
@@ -31,25 +31,25 @@ export default function Layout({ children, pageTitle, headerText, postExcerpt = 
         }
       }
     `
-    )
+  )
 
-    const {
-        title,
-        keywords,
-        navigationLinks
-    } = data.site.siteMetadata;
+  const {
+    title,
+    keywords,
+    navigationLinks
+  } = data.site.siteMetadata;
 
-    return (
-        <div>
-            <div className="d-flex">
-                <SideBar hideMobile={true} pages={navigationLinks} headerText={headerText} />
-                <SEO title={pageTitle} description={postExcerpt} />
-                {/* <ApolloProvider client={client}> */}
-                {children}
-                {/* </ApolloProvider> */}
-            </div>
-            <Footer />
-        </div>
-    )
+  return (
+    <div className="d-flex">
+      <SideBar hideMobile={true} pages={navigationLinks} headerText={headerText} />
+      <div className="page-content">
+        <SEO title={pageTitle} description={postExcerpt} />
+        {/* <ApolloProvider client={client}> */}
+        {children}
+        {/* </ApolloProvider> */}
+        <Footer />
+      </div>
+    </div>
+  )
 }
 

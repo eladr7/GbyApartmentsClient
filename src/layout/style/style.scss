@@ -38,18 +38,14 @@ p {
   padding: 0;
 }
 
-.suka {
-  width: 95%;
-  // margin: 1%;
-  margin-left: -5%;
-}
-
 .d-flex {
   display: flex;
 }
 
-.mr_10p {
-  margin-right: 10%;
+.page-content {
+  display: flex;
+  margin-left: 31%;
+  flex-direction: column;
 }
 
 strong {

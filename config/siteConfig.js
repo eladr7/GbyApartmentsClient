@@ -4,7 +4,8 @@ const config = {
   siteTitleShort: 'GatsbyJS P01', // Short site title for homescreen (PWA). Preferably should be under 12 characters to prevent truncation.
   siteTitleAlt: 'Apartments', // Alternative site title for SEO.
   siteLanguage: 'en', // Site language.
-  siteDescription: 'A blog starter with the bare essentials needed for a Gatsby site(SEO, pagination, category etc.)', // Website description used for RSS feeds/meta description tag.
+  sitePhoto: 'beach.jpg',
+  siteDescription: 'Take a look at our fun apartments!', // Website description used for RSS feeds/meta description tag.
   siteLogo: 'static/favicons/favicon.png', // Logo used for manifest.
   siteUrl: 'Apartments TLV', // Domain of your website without pathPrefix.
   pathPrefix: '/', // Prefixes all links. For cases when deployed to example.github.io/gatsby-material-starter/.

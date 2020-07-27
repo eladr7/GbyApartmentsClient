@@ -3,13 +3,16 @@ import { Link } from "gatsby"
 import '../../layout/style/style.scss'
 import './sidebar/sidebar.scss'
 import SiteCard from './sidebar/siteCard';
+import config from '../../../config/siteConfig';
+import { useSiteMetadata } from '../hooks'
+
 
 const navigationLinks = (pages) => {
     return (
-        <ul>
+        <ul className="suka">
             {pages.map((pageName, index) => {
                 const to = index === 0 ? "/" : "/" + pageName.toLowerCase() + "/";
-                return (<li className="mb-3" key={index}>
+                return (<li className="mb-3 blat" key={index}>
                     <Link
                         to={to}
                         className="align-bottom"
@@ -24,10 +27,12 @@ const navigationLinks = (pages) => {
 }
 
 const Sidebar = ({ pages }) => {
+  const { author } = useSiteMetadata()
+
     return (
-        <div className="mr_10p">
-            <SiteCard author={author}/>
-            <Divider className="sidebar-divider" />
+        <div className="sidebar-container">
+            <SiteCard siteData={{ siteTitle: config.siteTitle, description: config.siteDescription, photo: author.photo } }/>
+            <div className="sidebar-divider"></div>
             {navigationLinks(pages)}
         </div>
     )
