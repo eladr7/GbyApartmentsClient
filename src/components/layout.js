@@ -6,7 +6,6 @@ import SideBar from "./layoutComps/Sidebar"
 import { useStaticQuery, graphql } from "gatsby"
 import SEO from "./layoutComps/seo"
 import Footer from "./layoutComps/footer"
-import Pagination from './pagination';
 
 // import ApolloClient from 'apollo-boost';
 // import { ApolloProvider } from '@apollo/react-hooks';
@@ -19,7 +18,7 @@ import Pagination from './pagination';
 // });
 
 
-export default function Layout({ children, pageTitle, headerText, postExcerpt = null }) {
+export default function Layout({ children, pageTitle, headerText, postExcerpt = null, pagination = false }) {
   const data = useStaticQuery(
     graphql`
       query {
@@ -48,8 +47,7 @@ export default function Layout({ children, pageTitle, headerText, postExcerpt = 
         {/* <ApolloProvider client={client}> */}
         {children}
         {/* </ApolloProvider> */}
-        <Pagination />
-        <Footer />
+        <Footer pagination={pagination}/>
       </div>
     </div>
   )

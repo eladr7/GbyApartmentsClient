@@ -1,40 +1,36 @@
-import React from "react"
-import Layout from '../components/layout'
-import WpApartmentsLinks from '../components/wpApartmentsLinks'
-import { graphql } from "gatsby"
+import React, { useContext, useRef } from "react"
+import { useQuery } from '@apollo/react-hooks';
 
-// Elad: pass to Layout: headerText="Home page blat!" pageTitle="My site title"
-// And also if there should be a query or not.
-export default function Home({ data }) {
+import Layout from '../components/layout'
+
+import { PaginationContext } from '../stores/paginationContext';
+import WpApartmentsLinks from '../components/wpApartmentsLinks'
+
+export default function Home() {
+  const paginationContext = useRef(useContext(PaginationContext));
+  const { wpQuery, variables } = paginationContext.current.getPaginationQuery();
+
+  const { loading, error, data } = useQuery(wpQuery, { variables: { ...variables } });
+
+  if (loading) return <p>Loading the apartments previews</p>;
+
+  if (error) return (
+    <Layout pageTitle="My site title" headerText="Apartments list" pagination={true}>
+      <p>Error :(</p>
+    </Layout>
+  )
+
+  if (data.posts) {
+    return (
+      <Layout pageTitle="My site title" headerText="Apartments list" pagination={true}>
+        <WpApartmentsLinks previews={data.posts} />
+      </Layout>
+    );
+  }
+
   return (
-    <Layout pageTitle="My site title" headerText="Apartments list">
-      <WpApartmentsLinks data={data} />
+    <Layout pageTitle="My site title" headerText="Apartments list" pagination={true}>
+      <div>No apartments to show</div>
     </Layout>
   );
 }
-
-export const query = graphql`
-  query {
-    allWordpressPost(sort: { fields: [date], order: DESC }) {
-      edges {
-        node {
-          title
-          excerpt
-          slug
-          date
-          featured_media{
-            localFile{
-                childImageSharp{
-                    resolutions(width:500, height: 200){
-                        src
-                        width
-                        height
-                    }
-                }
-            }
-          }
-        }
-      }
-    }
-  }
-`

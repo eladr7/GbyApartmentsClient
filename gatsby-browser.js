@@ -4,13 +4,21 @@ import UserContextProvider from "./src/stores/userContext"
 import FilterContextProvider from "./src/stores/filterContext"
 import PaginationContextProvider from "./src/stores/paginationContext"
 
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+const client = new ApolloClient({
+  uri: 'http://35.233.180.148/graphql'
+});
+
 export const wrapRootElement = ({ element }) => {
   return (
     <UserContextProvider>
       <FilterContextProvider>
-        <PaginationContextProvider>
-          {element}
-        </PaginationContextProvider>
+        <ApolloProvider client={client}>
+          <PaginationContextProvider>
+            {element}
+          </PaginationContextProvider>
+        </ApolloProvider>
       </FilterContextProvider>
     </UserContextProvider>
   )

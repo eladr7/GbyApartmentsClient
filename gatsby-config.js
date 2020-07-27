@@ -72,6 +72,12 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: 'gatsby-plugin-apollo',
+      options: {
+        uri: 'http://35.233.180.148/graphql'
+      }
+    },
     `gatsby-transformer-remark`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
