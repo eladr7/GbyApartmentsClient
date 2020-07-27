@@ -18,13 +18,13 @@
         flex: 1;
         display: flex;
         justify-content: space-around;
-        align-items: center;
+        // align-items: center;
 
         > a {
             text-align: center;
             transition: transform $transition-fast-easein;
-            // margin-left: 30%;
-            // margin-right: 30%;
+            // margin-left: 3%;
+            // margin-right: 3%;
             &:hover {
                 @include hoverScale(1.3);
             }

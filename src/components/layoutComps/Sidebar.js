@@ -10,10 +10,10 @@ import { useSiteMetadata } from '../hooks'
 const navigationLinks = (pages) => {
     return (
         <nav className="sidebar-navigation">
-            <ul className="suka">
+            <ul className="nav-list">
                 {pages.map((pageName, index) => {
                     const to = index === 0 ? "/" : "/" + pageName.toLowerCase() + "/";
-                    return (<li className="mb-3 blat" key={index}>
+                    return (<li className="mb-3 nav-link" key={index}>
                         <Link
                             to={to}
                             className="align-bottom"

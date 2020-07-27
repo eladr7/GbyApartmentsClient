@@ -41,7 +41,7 @@
   }
 
   .sidebar-navigation {
-    .suka {
+    .nav-list {
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       --antd-wave-shadow-color: #1890ff;
       --scroll-bar: 0;
@@ -63,7 +63,7 @@
 
       list-style-type: none !important;
 
-      .blat {
+      .nav-link {
         box-sizing: border-box;
         margin-bottom: 0.75rem !important;
       }

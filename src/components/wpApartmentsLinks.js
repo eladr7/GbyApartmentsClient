@@ -1,33 +1,45 @@
 import React from "react"
 import { Link } from "gatsby"
-import { css } from "@emotion/core"
-import Pagination from './pagination';
+import Img from "gatsby-image"
+// import { useIsMobile } from './apartmentPreview/utils';
+import './apartmentPreview/apartmentPreview.scss';
+import PostText from './apartmentPreview/postText';
 
-const getLink = (node, slug, title, date) => {
+
+const apartmentPreview = ({ node }) => {
+  const {
+    featured_media = {},
+    featured_media: { localFile: { childImageSharp: { resolutions } } },
+    excerpt, slug, title, date
+  } = node;
+
   return (
-    <Link
-      to={slug}
-      css={css`text-decoration: none; color: inherit;`}
-    >
-      <h3 css={css`margin-bottom: 5px;`}>
-        {title}{" "}
-        <span>
-          — {date}
-        </span>
-      </h3>
-      <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-    </Link>
+    <article className="post-card">
+      <PostText
+        date={date}
+        head={<Link to={slug}>{title}</Link>}
+      >
+        {/* <p>{excerpt}</p> */}
+        <div dangerouslySetInnerHTML={{ __html: excerpt }} />
+      </PostText>
+      {resolutions &&
+        <Link to={slug} className="preview-img">
+          <Img
+            resolutions={resolutions}
+            style={{ width: `350px`, height: `200px` }}
+          />
+        </Link>
+      }
+    </article>
   );
-}
+};
 
-const blogPostLink = (blogType, posts, color, blogsTitle) => {
+const blogPostLink = (posts) => {
   return (
-    <div style={{ marginLeft: `5%` }}>
-      <h3 style={{ color: `${color}` }}>{blogsTitle}</h3>
-      <h4>{posts.totalCount} Posts</h4>
+    <div style={{ marginLeft: `2%` }} className="posts">
       {posts.edges.map(({ node }) => (
         <div key={node.id}>
-          {blogType === "wp" ? getLink(node, node.slug, node.title, node.date) : getLink(node, node.fields.slug, node.frontmatter.title, node.frontmatter.date)}
+          {apartmentPreview({ node })}
         </div>
       ))}
     </div>
@@ -40,10 +52,7 @@ const WpApartmentsLinks = ({ data }) => (
     <div>
       <h2>Available apartments:</h2>
     </div>
-    <div>
-      {blogPostLink("wp", data.allWordpressPost, 'red', 'My WordPress Posts:')}
-      <Pagination />
-    </div>
+    {blogPostLink(data.allWordpressPost)}
   </div>
 )
 
