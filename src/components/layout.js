@@ -14,7 +14,7 @@ import Footer from "./layoutComps/footer"
 // //   uri: 'https://gatsby-server-ugdhobbyma-uw.a.run.app/graphql'
 // // });
 // const client = new ApolloClient({
-//   uri: 'http://localhost:4001/graphql'
+//   uri: 'http://localhost:4000/graphql'
 // });
 
 
