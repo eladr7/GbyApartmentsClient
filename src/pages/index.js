@@ -8,9 +8,9 @@ import WpApartmentsLinks from '../components/wpApartmentsLinks'
 
 export default function Home() {
   const paginationContext = useRef(useContext(PaginationContext));
-  const { wpQuery, variables } = paginationContext.current.getPaginationQuery();
+  const { wpQuery, variables, wpClient } = paginationContext.current.getPaginationQuery();
 
-  const { loading, error, data } = useQuery(wpQuery, { variables: { ...variables } });
+  const { loading, error, data } = useQuery(wpQuery, { client: wpClient, variables: { ...variables } });
 
   if (loading) return <p>Loading the apartments previews</p>;
 

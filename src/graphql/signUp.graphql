@@ -1,5 +1,5 @@
-mutation SignUp($token: String!) {
-  signUp(token: $token) {
+mutation Signup($token: String!) {
+  signup(token: $token) {
     accessToken
     user {
       id

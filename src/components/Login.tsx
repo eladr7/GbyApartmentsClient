@@ -1,59 +1,66 @@
-import React, { useContext, useState } from "react"
-// import { UserContext } from '../services/userContext';
-
-// import { useQuery, useMutation } from '@apollo/react-hooks';
-// import { getUserQuery, addUserMutation } from './books/queries/queries';
+import React, { useContext, useState, useRef } from "react"
+import { UserContext } from '../stores/userContext';
 
 import { navigate } from "gatsby"
 
-// import { RouteComponentProps } from "react-router";
-import { useSignUpMutation, MeDocument, MeQuery } from "../generated/graphql";
+import { useSignupMutation, useMeQuery, MeDocument } from "../generated/graphql";
 import { setAccessToken } from "../accessToken";
-
 
 import GoogleLogin from 'react-google-login';
 const googleAppId = "916430282052-fgf6b716m19seu57dhr9dtj99o7tcevs.apps.googleusercontent.com"
 
 
-const signupToServer = async (signup, tokenId) => {
+const addUserToDB = async (token, signup, myServerClient) => {
   const response = await signup({
-    variables: { token: tokenId },
-    // update: (store, { data }) => {
-    //   if (!data) {
-    //     return null;
-    //   }
-
-    //   store.writeQuery<MeQuery>({
-    //     query: MeDocument,
-    //     data: {
-    //       me: data.login.user
-    //     }
-    //   });
-    // }
+    client: myServerClient,
+    variables: { token: token },
+    update: (store, { data }) => {
+      if (!data) {
+        return null;
+      }
+      // store.writeQuery<MeQuery>({
+      store.writeQuery({
+        query: MeDocument,
+        data: {
+          me: data.signup.user
+        }
+      });
+    }
   });
 
   if (response && response.data) {
-    setAccessToken(response.data.signUp.accessToken);
+    setAccessToken(response.data.signup.accessToken);
+    navigate(`/app/profile`)
   }
-
-  // history.push("/");
-  // navigate(`/app/profile`)
-  navigate(`/`)
 }
 
-interface Props { }
+// https://youtu.be/N2q-ZYuQWI8?t=66
+const Login: React.FC<any> = () => {
+  const userContext = useRef(useContext(UserContext));
+  const { myServerClient } = userContext.current.getMyServerClient();
 
+  const [addedCount, setAddedCount] = useState(0);
+  const [token, setToken] = useState("");
 
-const Login: React.FC<Props> = () => {
-  const [signup] = useSignUpMutation();
+  const [signup] = useSignupMutation();
+
+  const { data, loading, error } = useMeQuery({ client: myServerClient, fetchPolicy: "network-only" });
 
   const onSuccessLogin = () => res => {
-    debugger
-    const { tokenId, profileObj: { name, email } } = res;
-    // const user = { name, email, token: tokenId };
-    // userContext.setSuccessfulLogin(user);
+    const { tokenId } = res;
+    setToken(tokenId);
+  }
 
-    signupToServer(signup, tokenId);
+  if (data && data.me && data.me.id) {
+    navigate(`/app/profile`)
+  }
+  else {
+    if (addedCount === 0) {
+      if (!loading && error && error.message.includes("not authenticated") && token !== "") {
+        setAddedCount(addedCount + 1);
+        addUserToDB(token, signup, myServerClient);
+      }
+    }
   }
 
   return (

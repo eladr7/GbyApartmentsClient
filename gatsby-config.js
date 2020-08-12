@@ -12,7 +12,7 @@ module.exports = {
     copyright: '© 2020 | TLV, Israel',
     description: `A simple description about pandas eating lots...`,
     keywords: ['my cool site', 'king site', 'im the king', 'get a super site'],
-    navigationLinks: ['Home', 'About', 'Contact'],
+    navigationLinks: ['Home', 'About', 'Contact', 'Profile', 'Login'],
     siteUrl: `http://localhost:8000/`,
     menu: [
       {
@@ -42,14 +42,6 @@ module.exports = {
     }
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-typescript`,
-      options: {
-        isTSX: true, // defaults to false
-        jsxPragma: `jsx`, // defaults to "React"
-        allExtensions: true, // defaults to false
-      },
-    },
     {
       resolve: `gatsby-source-wordpress`,
       options: {
@@ -83,10 +75,11 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-apollo',
       options: {
-        uri: 'http://35.233.180.148/graphql'
+        uri: 'http://localhost:4000/graphql'
       }
     },
     `gatsby-transformer-remark`,
+    'gatsby-plugin-typescript',
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -107,7 +100,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `src`,
-        path: `${__dirname}/src/images/`,
+        path: `${__dirname}/src/pages/`,
       },
     },
     {

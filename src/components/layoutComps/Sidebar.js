@@ -12,7 +12,9 @@ const navigationLinks = (pages) => {
         <nav className="sidebar-navigation">
             <ul className="nav-list">
                 {pages.map((pageName, index) => {
-                    const to = index === 0 ? "/" : "/" + pageName.toLowerCase() + "/";
+                    const pathName = pageName.toLowerCase();
+                    const path = (pathName === 'login' || pathName === 'profile') ? 'app/' + pathName : pathName;
+                    const to = index === 0 ? "/" : "/" + path + "/";
                     return (<li className="mb-3 nav-link" key={index}>
                         <Link
                             to={to}

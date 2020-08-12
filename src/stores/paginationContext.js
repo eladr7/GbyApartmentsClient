@@ -3,6 +3,7 @@ import { PaginationReducer, PAGINATION_OPS } from './reducers/paginationReducer'
 import { useStaticQuery, graphql } from "gatsby"
 import { getApartmentsPreviewsQueryForward, getApartmentsCursors } from '../stores/queries/queries'
 
+import ApolloClient from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 
 
@@ -20,7 +21,8 @@ const PaginationContextProvider = (props) => {
         `
     );
 
-    const paginationEdges = useRef({ pagesIds: [], start: -1, end: -1, currentPage: 1 });
+    const paginationEdges = useRef({ pagesIds: [], start: -1, end: -1, currentPage: 1, wpClient: new ApolloClient({uri: 'http://35.233.180.148/graphql'}) 
+    });
     const [paginationData, dispatch] = useReducer(PaginationReducer, {}, () => {
         const initialState = { currentPage: 1, perPage: 2, numOfApartments: staticData.allWordpressPost.totalCount };
         return initialState;
@@ -43,7 +45,7 @@ const PaginationContextProvider = (props) => {
         paginationEdges.current.end = maxIndex;
     }
 
-    const { loading, error, data } = useQuery(getApartmentsCursors);
+    const { loading, error, data } = useQuery(getApartmentsCursors, {client: paginationEdges.current.wpClient});
 
     if (data && data.posts && !loading && !error && loadCount.current === 0) {
         loadCount.current++;
@@ -82,7 +84,7 @@ const PaginationContextProvider = (props) => {
             after: cursorIdToFetchFrom
         }
 
-        return { wpQuery: getApartmentsPreviewsQueryForward, variables };
+        return { wpQuery: getApartmentsPreviewsQueryForward, variables, wpClient: paginationEdges.current.wpClient };
     }
 
     return (
