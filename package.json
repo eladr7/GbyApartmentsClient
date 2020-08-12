@@ -11,13 +11,15 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@apollo/client": "^3.1.1",
     "@apollo/react-hooks": "^3.1.5",
     "@emotion/core": "^10.0.28",
     "apollo-boost": "^0.4.9",
+    "apollo-link-token-refresh": "^0.3.2",
     "gatsby": "^2.23.12",
     "gatsby-cli": "^2.12.80",
     "gatsby-image": "^2.4.13",
@@ -35,6 +37,7 @@
     "graphql": "^15.2.0",
     "graphql-anywhere": "^4.2.7",
     "graphql-tag": "^2.10.3",
+    "jwt-decode": "^2.2.0",
     "node-sass": "^4.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -43,6 +46,12 @@
     "zustand": "^2.2.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "1.17.8",
+    "@graphql-codegen/typescript": "1.17.8",
+    "@graphql-codegen/typescript-operations": "1.17.8",
+    "@graphql-codegen/typescript-react-apollo": "1.17.8",
+    "@types/graphql": "^14.5.0",
+    "@types/jwt-decode": "^2.2.1",
     "babel-plugin-require-context-hook": "^1.0.0",
     "prettier": "2.0.5"
   },

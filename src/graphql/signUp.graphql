@@ -1,0 +1,10 @@
+mutation SignUp {
+  signUp {
+    accessToken
+    user {
+      id
+      email
+      name
+    }
+  }
+}

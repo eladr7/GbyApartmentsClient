@@ -1,0 +1,3 @@
+mutation AssignRoom($roomCursor: String!) {
+  assignRoom(roomCursor: $roomCursor)
+}
