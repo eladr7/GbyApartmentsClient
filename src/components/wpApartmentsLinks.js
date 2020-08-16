@@ -28,7 +28,7 @@ const apartmentPreview = ({ node }) => {
           /> */}
           <img
             src={sourceUrl}
-            style={{ width: `350px`, height: `120px` }}
+            style={{ width: `250px`, height: `120px` }}
           />
         </Link>
       }
