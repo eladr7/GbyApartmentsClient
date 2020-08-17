@@ -1,6 +1,5 @@
 import React, { createContext, useReducer, useEffect, useRef } from 'react';
 import { PaginationReducer, PAGINATION_OPS } from './reducers/paginationReducer';
-import { useStaticQuery, graphql } from "gatsby"
 import { getApartmentsPreviewsQueryForward, getApartmentsCursors } from '../stores/queries/queries'
 
 import ApolloClient from 'apollo-boost';
@@ -11,27 +10,37 @@ export const PaginationContext = createContext();
 
 const PaginationContextProvider = (props) => {
     const loadCount = useRef(0);
-    const staticData = useStaticQuery(
-        graphql`
-          query {
-            allWordpressPost{
-              totalCount
-            }
-          }
-        `
-    );
 
-    const paginationEdges = useRef({ pagesIds: [], start: -1, end: -1, currentPage: 1, wpClient: new ApolloClient({uri: 'http://35.233.180.148/graphql'}) 
+    const paginationEdges = useRef({
+        pagesIds: [],
+        start: -1,
+        end: -1,
+        currentPage: 1,
+        wpClient: new ApolloClient({ uri: 'http://35.233.180.148/graphql' }),
+        filterParams: {
+            minPriceCtx: '0',
+            maxPriceCtx: '0',
+            bedroomsNumCtx: '',
+            areaCtx: ''
+        }
     });
     const [paginationData, dispatch] = useReducer(PaginationReducer, {}, () => {
-        const initialState = { currentPage: 1, perPage: 2, numOfApartments: staticData.allWordpressPost.totalCount };
+        const initialState = {
+            currentPage: 1,
+            perPage: 2,
+            shouldReload: true
+        };
         return initialState;
     });
 
+    useEffect(() => {
+    }, []);
+
     const getApartmentsIndexesToFecth = (newPage = -1) => {
         // Get indexes: perPage* (currentPage - 1) --> (perPage * currentPage) - 1
-        const { currentPage, perPage, numOfApartments } = paginationData;
-        
+        const { perPage } = paginationData;
+        const numOfApartments = paginationEdges.current.pagesIds.length;
+
         const pageNum = newPage !== -1 ? newPage : paginationEdges.current.currentPage;
 
         const minIndex = numOfApartments === 0 ? -1 : perPage * (pageNum - 1);
@@ -45,16 +54,17 @@ const PaginationContextProvider = (props) => {
         paginationEdges.current.end = maxIndex;
     }
 
-    const { loading, error, data } = useQuery(getApartmentsCursors, {client: paginationEdges.current.wpClient});
+    const filterVariables = {
+        "search": "Price: " + paginationEdges.current.filterParams.minPriceCtx.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "$/M"
+    }
+    const { loading, error, data } = useQuery(getApartmentsCursors, { client: paginationEdges.current.wpClient, variables: { ...filterVariables } });
 
     if (data && data.posts && !loading && !error && loadCount.current === 0) {
         loadCount.current++;
         paginationEdges.current.pagesIds = data.posts.edges.map(edge => edge.cursor);
+
         setPageIndexes();
     }
-
-    useEffect(() => {
-    }, []);
 
     const setCurrentPage = (pageNum) => {
         setPageIndexes(pageNum);
@@ -71,9 +81,10 @@ const PaginationContextProvider = (props) => {
             type: PAGINATION_OPS.SET_APARTMENTS_PER_PAGE,
             paginationData: { perPage: postsPerPage }
         });
+        loadCount.current = 0;
     }
 
-    const getPaginationData = () => paginationData;
+    const getPaginationData = () => ({ ...paginationData, numOfApartments: paginationEdges.current.pagesIds.length });
 
     const getPaginationQuery = () => {
         const startIndex = paginationEdges.current.start;
@@ -81,10 +92,31 @@ const PaginationContextProvider = (props) => {
 
         const variables = {
             first: paginationData.perPage,
-            after: cursorIdToFetchFrom
+            after: cursorIdToFetchFrom,
+            search: "Price: " + paginationEdges.current.filterParams.minPriceCtx.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "$/M"
         }
 
         return { wpQuery: getApartmentsPreviewsQueryForward, variables, wpClient: paginationEdges.current.wpClient };
+    }
+
+    const getFilterParams = () => {
+        return paginationEdges.current.filterParams;
+    }
+
+    const setFilterContext = (minPrice, maxPrice, bedroomsNum, area) => {
+        const filterParams = {
+            minPriceCtx: minPrice,
+            maxPriceCtx: maxPrice,
+            bedroomsNumCtx: bedroomsNum,
+            areaCtx: area
+        }
+
+        paginationEdges.current.filterParams = filterParams;
+        loadCount.current = 0;
+        dispatch({
+            type: PAGINATION_OPS.SET_SHOULD_RELOAD,
+            paginationData: { shouldReload: !paginationData.shouldReload }
+        });
     }
 
     return (
@@ -94,7 +126,9 @@ const PaginationContextProvider = (props) => {
             setCurrentPage: (pageNum) => setCurrentPage(pageNum),
             setPerPage: (postsPerPage) => setPerPage(postsPerPage),
             getPaginationData: () => getPaginationData(),
-            getPaginationQuery: () => getPaginationQuery()
+            getPaginationQuery: () => getPaginationQuery(),
+            getFilterParams: () => getFilterParams(),
+            setFilterContext: (minPrice, maxPrice, bedroomsNum, area) => setFilterContext(minPrice, maxPrice, bedroomsNum, area)
         }}>
             {props.children}
         </PaginationContext.Provider>

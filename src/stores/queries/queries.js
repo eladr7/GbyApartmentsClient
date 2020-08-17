@@ -2,8 +2,8 @@ import { gql } from 'apollo-boost';
 
 
 const getApartmentsPreviewsQueryForward = gql`
-    query GET_POSTS($first: Int, $after: String) {
-        posts(first: $first, after: $after) {
+    query GET_POSTS($first: Int, $after: String, $search: String) {
+        posts(first: $first, after: $after, where: {search: $search}) {
             pageInfo {
                 endCursor
                 startCursor
@@ -30,8 +30,8 @@ const getApartmentsPreviewsQueryForward = gql`
 `;
 
 const getApartmentsCursors = gql`
-    query GET_POSTS {
-        posts {
+    query GET_POSTS($search: String) {
+        posts(where: {search: $search}) {
             edges {
                 cursor
             }

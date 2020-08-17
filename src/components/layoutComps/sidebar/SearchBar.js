@@ -1,26 +1,20 @@
 import React, { useContext, useState, useRef } from "react"
 import '../../../layout/style/style.scss';
 
-// import { PaginationContext } from '../../../stores/paginationContext'
+import { PaginationContext } from '../../../stores/paginationContext'
 
 
 const SearchBar = () => {
-    // const paginationContext = useRef(useContext(PaginationContext));
-    // const {minPriceCtx, maxPriceCtx, bedroomsNumCtx, areaCtx} = paginationContext.getFilterParams();
-    // const [minPrice, setMinPrice] = useState(minPriceCtx);
-    // const [maxPrice, setMaxPrice] = useState(maxPriceCtx);
-    // const [bedroomsNum, setBedroomsNum] = useState(bedroomsNumCtx);
-    // const [area, setArea] = useState(areaCtx);
+    const paginationContext = useRef(useContext(PaginationContext));// elad: maybe remove the useRef
+    const {minPriceCtx, maxPriceCtx, bedroomsNumCtx, areaCtx} = paginationContext.current.getFilterParams();
 
-    const [minPrice, setMinPrice] = useState('0');
-    const [maxPrice, setMaxPrice] = useState('0');
-
-    const [bedroomsNum, setBedroomsNum] = useState('');
-
-    const [area, setArea] = useState('');
+    const [minPrice, setMinPrice] = useState(minPriceCtx);
+    const [maxPrice, setMaxPrice] = useState(maxPriceCtx);
+    const [bedroomsNum, setBedroomsNum] = useState(bedroomsNumCtx);
+    const [area, setArea] = useState(areaCtx);
 
     const applyFilters = (e) => {
-        // paginationContext.setFilterContext(minPrice, maxPrice, bedroomsNum, area);
+        paginationContext.current.setFilterContext(minPrice, maxPrice, bedroomsNum, area);
     }
 
     return (

@@ -6,7 +6,7 @@ export const PAGINATION_DIRECTION = {
 export const PAGINATION_OPS = {
     SET_CURRENT_PAGE: "SET_CURRENT_PAGE",
     SET_APARTMENTS_PER_PAGE: "SET_APARTMENTS_PER_PAGE",
-    SET_PAGINATION_EDGES_CURSORS: "SET_PAGINATION_EDGES_CURSORS",
+    SET_SHOULD_RELOAD: "SET_SHOULD_RELOAD"
 }
 
 export const PaginationReducer = (state, action) => {
@@ -15,22 +15,19 @@ export const PaginationReducer = (state, action) => {
             return {
                 currentPage: action.paginationData.currentPage,
                 perPage: state.perPage,
-                numOfApartments: state.numOfApartments,
-                paginationEdges: state.paginationEdges
+                shouldReload: state.shouldReload
             };
         case PAGINATION_OPS.SET_APARTMENTS_PER_PAGE:
             return {
                 currentPage: state.currentPage,
                 perPage: action.paginationData.perPage,
-                numOfApartments: state.numOfApartments,
-                paginationEdges: state.paginationEdges
+                shouldReload: state.shouldReload
             };
-        case PAGINATION_OPS.SET_PAGINATION_EDGES_CURSORS:
+        case PAGINATION_OPS.SET_SHOULD_RELOAD:
             return {
                 currentPage: state.currentPage,
                 perPage: state.perPage,
-                numOfApartments: state.numOfApartments,
-                paginationEdges: action.paginationData.paginationEdges
+                shouldReload: action.paginationData.shouldReload
             };
         default:
             return state;
