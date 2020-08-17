@@ -2,7 +2,7 @@
 @import "../../layout/style/base/breakpoints";
 @import "../../layout/style/base/mixin";
 
-$card-height: 143px;
+$card-height: 120px;
 .posts {
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@ $card-height: 143px;
         border-radius: $base-border-radius * 4;
         box-shadow: $spacing-normal 0 $spacing-large var(--black);
         transition: all $transition-faster-easein;
-        width: 80%;
+        width: 50%;
         justify-content: space-between;
         .post-card-text {
             display: flex;
@@ -29,7 +29,7 @@ $card-height: 143px;
                 margin-block-end: 0;
                 margin-block-start: 0;
                 transition: all $transition-slower-ease;
-
+                font-size: 1.5rem;
                 //   &:hover {
                 //     background: linear-gradient(
                 //       0.25turn,

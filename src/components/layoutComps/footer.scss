@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 10%;
-
+    margin-left: -2%;
     .pagination {
         margin-left: 3%;
         display: flex;
@@ -80,7 +80,7 @@
         margin-bottom: $spacing-large;
         // max-width: $site-max-width;
         max-width: 70%;
-        margin-left: 1%;
+        margin-left: 3%;
 
         > .links {
             flex: 1;
