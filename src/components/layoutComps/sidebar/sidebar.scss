@@ -7,21 +7,21 @@
   min-height: 100vh !important;
 
   .site-card {
-    text-align: center !important;
-    padding-top: 1.25rem !important;
+    text-align: center;
+    padding-top: 1.25rem;
 
     .title {
-      --text-opacity: 1 !important;
+      --text-opacity: 1;
       box-sizing: border-box;
 
       .header {
-        margin-top: 1.25rem !important;
-        color: rgba(255, 255, 255, var(--text-opacity)) !important;
+        margin-top: 1.25rem;
+        color: rgba(255, 255, 255, var(--text-opacity));
         display: block;
       }
 
       .description {
-        color: rgba(224, 224, 224, var(--text-opacity)) !important;
+        color: rgba(224, 224, 224, var(--text-opacity));
         margin-top: 0;
         margin-bottom: 1em;
         display: block;
@@ -29,6 +29,30 @@
         margin-block-end: 1em;
         margin-inline-start: 0px;
         margin-inline-end: 0px;
+      }
+    }
+
+    .filters {
+      margin-top: 15%;
+      text-align: left;
+      --text-opacity: 1;
+      color: rgba(255, 255, 255, var(--text-opacity)) !important;
+      label {
+        margin-right: 5%;
+      }
+      .price {
+        margin-bottom: 17%;
+        .min-price {
+          margin-right: 5%;
+        }
+      }
+
+      .bedrooms {
+        margin-bottom: 17%;
+      }
+
+      .meterage {
+        margin-bottom: 25%;
       }
     }
   }

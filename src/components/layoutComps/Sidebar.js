@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import '../../layout/style/style.scss'
 import './sidebar/sidebar.scss'
 import SiteCard from './sidebar/siteCard';
+import SearchBar from './sidebar/SearchBar';
 import config from '../../../config/siteConfig';
 import { useSiteMetadata } from '../hooks'
 
@@ -39,6 +40,8 @@ const Sidebar = ({ pages }) => {
             <SiteCard siteData={{ siteTitle: config.siteTitle, description: config.siteDescription, photo: author.photo }} />
             <div className="sidebar-divider"></div>
             {navigationLinks(pages)}
+            <div className="sidebar-divider"></div>
+            <SearchBar/>
         </div>
     )
 }

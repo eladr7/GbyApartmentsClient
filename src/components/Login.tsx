@@ -10,7 +10,7 @@ import GoogleLogin from 'react-google-login';
 const googleAppId = "916430282052-fgf6b716m19seu57dhr9dtj99o7tcevs.apps.googleusercontent.com"
 
 
-const addUserToDB = async (token, signup, myServerClient) => {
+const signupUser = async (token, signup, myServerClient) => {
   const response = await signup({
     client: myServerClient,
     variables: { token: token },
@@ -58,7 +58,7 @@ const Login: React.FC<any> = () => {
     if (addedCount === 0) {
       if (!loading && error && error.message.includes("not authenticated") && token !== "") {
         setAddedCount(addedCount + 1);
-        addUserToDB(token, signup, myServerClient);
+        signupUser(token, signup, myServerClient);
       }
     }
   }
