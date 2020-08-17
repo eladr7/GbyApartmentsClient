@@ -9,7 +9,7 @@
 @import "./layout/layout";
 
 html {
-  font-size: $font-medium;
+  font-size: $font-small;
 
   @include media-breakpoint-between($breakpoint-sm, $breakpoint-md) {
     font-size: $font-small;

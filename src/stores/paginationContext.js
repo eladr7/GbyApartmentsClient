@@ -119,6 +119,22 @@ const PaginationContextProvider = (props) => {
         });
     }
 
+    const resetFilters = () => {
+        const filterParams = {
+            minPriceCtx: '0',
+            maxPriceCtx: '0',
+            bedroomsNumCtx: '',
+            areaCtx: ''
+        }
+
+        paginationEdges.current.filterParams = filterParams;
+        loadCount.current = 0;
+        dispatch({
+            type: PAGINATION_OPS.SET_SHOULD_RELOAD,
+            paginationData: { shouldReload: !paginationData.shouldReload }
+        });
+    }
+
     return (
         <PaginationContext.Provider value={{
             paginationData,
@@ -128,7 +144,8 @@ const PaginationContextProvider = (props) => {
             getPaginationData: () => getPaginationData(),
             getPaginationQuery: () => getPaginationQuery(),
             getFilterParams: () => getFilterParams(),
-            setFilterContext: (minPrice, maxPrice, bedroomsNum, area) => setFilterContext(minPrice, maxPrice, bedroomsNum, area)
+            setFilterContext: (minPrice, maxPrice, bedroomsNum, area) => setFilterContext(minPrice, maxPrice, bedroomsNum, area),
+            resetFilters: () => resetFilters()
         }}>
             {props.children}
         </PaginationContext.Provider>

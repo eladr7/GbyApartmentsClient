@@ -6,7 +6,7 @@ import { PaginationContext } from '../../../stores/paginationContext'
 
 const SearchBar = () => {
     const paginationContext = useRef(useContext(PaginationContext));// elad: maybe remove the useRef
-    const {minPriceCtx, maxPriceCtx, bedroomsNumCtx, areaCtx} = paginationContext.current.getFilterParams();
+    const { minPriceCtx, maxPriceCtx, bedroomsNumCtx, areaCtx } = paginationContext.current.getFilterParams();
 
     const [minPrice, setMinPrice] = useState(minPriceCtx);
     const [maxPrice, setMaxPrice] = useState(maxPriceCtx);
@@ -15,6 +15,14 @@ const SearchBar = () => {
 
     const applyFilters = (e) => {
         paginationContext.current.setFilterContext(minPrice, maxPrice, bedroomsNum, area);
+    }
+
+    const resetFilters = (e) => {
+        setMinPrice('0');
+        setMaxPrice('0');
+        setBedroomsNum('');
+        setArea('');
+        paginationContext.current.resetFilters();
     }
 
     return (
@@ -62,7 +70,7 @@ const SearchBar = () => {
                     </select>
                 </div>
                 <div className="meterage">
-                    <label>Room area</label>
+                    <label>Apartment area</label>
                     <select onChange={e => setArea(e.target.value)} value={area}>
                         <option value=''> </option>
                         <option value="30-40">30-40</option>
@@ -74,7 +82,10 @@ const SearchBar = () => {
                         <option value="91-100">91-100</option>
                     </select>
                 </div>
-                <button className="apply-filters-button" onClick={applyFilters}>Apply</button>
+                <div className="d-flex">
+                    <button className="apply-filters-button" onClick={applyFilters}>Apply</button>
+                    <button onClick={resetFilters}>Reset filters</button>
+                </div>
             </div>
         </div>
     );
