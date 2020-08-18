@@ -19,19 +19,18 @@ import Footer from "./layoutComps/footer"
 
 
 export default function Layout({ children, pageTitle, headerText, postExcerpt = null, pagination = false }) {
-  const data = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            keywords
-            navigationLinks
-          }
-        }
+  const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        keywords
+        navigationLinks
       }
-    `
-  )
+    }
+  }
+`;
+  const data = useStaticQuery(query);
 
   const {
     title,

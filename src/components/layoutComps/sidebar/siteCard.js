@@ -3,19 +3,18 @@ import { withPrefix, Link, useStaticQuery, graphql } from 'gatsby'
 import Img from "gatsby-image"
 
 const SiteCard = ({ siteData }) => {
-    const data = useStaticQuery(
-        graphql`
-          query {
-            file(relativePath: { eq: "beach.jpg" }) {
-              childImageSharp {
-                fixed(width: 125, height: 125) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
-            }
-          }
-        `
-    )
+  const query = graphql`
+  query {
+    file(relativePath: { eq: "beach.jpg" }) {
+      childImageSharp {
+        fixed(width: 125, height: 125) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`
+    const data = useStaticQuery(query)
 
     return (
         <div className="text-center pt-5 site-card">
