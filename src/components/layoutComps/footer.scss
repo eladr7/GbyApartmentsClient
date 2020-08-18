@@ -12,7 +12,7 @@
         font-size: $font-large;
         justify-content: space-between;
         align-items: center;
-        max-width: 70%;
+        max-width: 55%;
         //   margin: $relative-spacing-xlarge 0;
 
         > .pagination-number {
@@ -64,7 +64,7 @@
         background: none;
         margin-bottom: 2%;
         margin-top: 2%;
-        width: 70%;
+        width: 55%;
       }
 
     .footer-links {
@@ -79,7 +79,7 @@
 
         margin-bottom: $spacing-large;
         // max-width: $site-max-width;
-        max-width: 70%;
+        max-width: 55%;
         margin-left: 3%;
 
         > .links {

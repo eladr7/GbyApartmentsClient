@@ -4,18 +4,12 @@ import { gql } from 'apollo-boost';
 const getApartmentsPreviewsQueryForward = gql`
     query GET_POSTS($first: Int, $after: String, $search: String) {
         posts(first: $first, after: $after, where: {search: $search}) {
-            pageInfo {
-                endCursor
-                startCursor
-                hasNextPage
-                hasPreviousPage
-            }
             edges {
                 cursor
                 node {
                     title
                     id
-                    excerpt
+                    content
                     slug
                     date
                     featuredImage {

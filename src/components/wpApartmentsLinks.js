@@ -9,7 +9,7 @@ const apartmentPreview = ({ node }) => {
   const {
     featuredImage = {},
     featuredImage: { node: { sourceUrl } },
-    excerpt, slug, title, date
+    content, slug, title, date
   } = node;
 
   return (
@@ -18,7 +18,7 @@ const apartmentPreview = ({ node }) => {
         date={date}
         head={<Link to={slug}>{title}</Link>}
       >
-        <div dangerouslySetInnerHTML={{ __html: excerpt }} />
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </PostText>
       {sourceUrl &&
         <Link to={slug} className="preview-img">
@@ -28,7 +28,7 @@ const apartmentPreview = ({ node }) => {
           /> */}
           <img
             src={sourceUrl}
-            style={{ width: `150px`, height: `90px` }}
+            style={{ width: `150px`, height: `95%` }}
           />
         </Link>
       }

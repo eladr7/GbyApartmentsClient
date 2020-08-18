@@ -8,7 +8,7 @@ export default function BlogPost({ data }) {
   const imagesResolutions = post.featured_media.localFile.childImageSharp.resolutions
 
   return (
-    <Layout pageTitle={post.title} postExcerpt={post.excerpt}>
+    <Layout pageTitle={post.title} postExcerpt={post.content}>
       <div className="post-page">
         <h1>{post.title}</h1>
         <div className="post-divider"></div>
