@@ -5,11 +5,12 @@ import Layout from '../components/layout'
 export default function About() {
   return (
     <Layout headerText="About me" pageTitle="My site title">
-        <div>
-          <p>This is my apartments site</p>
-          <p>These apartments are being occupied mostly by tourists and has a good atmosphere</p>
-          <p>Your'e welcome to take a look at the available apartments. HF ;)</p>
-        </div>
+      <div className="about">
+        <h3>Apartemnts TLV is an apartments compound located in the center of Tel-Aviv <br></br>
+        and provides housing both tourists and local residents</h3>
+
+        <h4 className="subtitle">Your'e welcome to take a look at the available apartments. HF ;)</h4>
+      </div>
     </Layout>
   )
 }

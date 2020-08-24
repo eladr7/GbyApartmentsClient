@@ -1,5 +1,5 @@
 const config = {
-  author: 'Elad the king', // Site owner
+  author: 'Elad.R', // Site owner
   siteTitle: 'Apartments TLV', // Site title.
   siteTitleShort: 'GatsbyJS P01', // Short site title for homescreen (PWA). Preferably should be under 12 characters to prevent truncation.
   siteTitleAlt: 'Apartments', // Alternative site title for SEO.
@@ -14,8 +14,8 @@ const config = {
   siteGATrackingID: 'UA-153303709-3', // Tracking code ID for google analytics.
   disqusShortname: 'Apartments TLV', // Disqus shortname.
   twitterUserName: '', // twitter creator for SEO
-  datePublished: '2019-12-08', // for SEO
-  copyrightYear: '2019', // for SEO
+  datePublished: '2020-24-08', // for SEO
+  copyrightYear: '2020', // for SEO
   postsPerPage: 4, // posts per page used in gatsby-node.js
   // Links to social profiles you want to display in the footer.
   rrssb: [

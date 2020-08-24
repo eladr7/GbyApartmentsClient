@@ -11,7 +11,7 @@ module.exports = {
     subtitle: `This is a cool apartments site`,
     copyright: '© 2020 | TLV, Israel',
     description: `A simple description about pandas eating lots...`,
-    keywords: ['my cool site', 'king site', 'im the king', 'get a super site'],
+    keywords: ['apartments TLV', 'sublet apartments', 'short term apartments', 'rent apartments'],
     navigationLinks: ['Home', 'About', 'Contact', 'Profile', 'Login'],
     siteUrl: `http://localhost:8000/`,
     menu: [
@@ -75,7 +75,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-apollo',
       options: {
-        uri: 'http://localhost:4000/graphql'
+        uri: 'https://apartments-server-ugdhobbyma-uw.a.run.app/graphql'
       }
     },
     `gatsby-transformer-remark`,
