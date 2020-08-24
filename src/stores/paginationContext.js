@@ -2,9 +2,36 @@ import React, { createContext, useReducer, useEffect, useRef } from 'react';
 import { PaginationReducer, PAGINATION_OPS } from './reducers/paginationReducer';
 import { getApartmentsPreviewsQueryForward, getApartmentsCursors } from '../stores/queries/queries'
 
-import ApolloClient from 'apollo-boost';
+// import ApolloClient from 'apollo-boost';
+import { ApolloClient } from "apollo-client";
+// import { createHttpLink } from "@apollo/client";
 import { useQuery } from '@apollo/react-hooks';
+import { HttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
+// import { setContext } from '@apollo/client/link/context';
 
+
+// const httpLink = createHttpLink({
+//     uri: 'https://35.233.180.148/graphql',
+//   });
+// const UserAgent =  "User-Agent";
+// const AcceptLanguage =  "Accept-Language";
+// const authLink = setContext((_, { headers }) => {
+//     // get the authentication token from local storage if it exists
+//     // const token = localStorage.getItem('token');
+//     // return the headers to the context so httpLink can read them
+//     return {
+//       headers: {
+//         ...headers,
+//         // authorization: token ? `Bearer ${token}` : "",
+//         // Origin: "https://practical-panini-bac2b5.netlify.app",
+//         // Referer: "https://practical-panini-bac2b5.netlify.app/",
+//         // [UserAgent]: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36",
+//         // [AcceptLanguage]: "en-US,en;q=0.9,he;q=0.8",
+//         // 'Access-Control-Allow-Origin': '*',
+//       }
+//     }
+//   });
 
 export const PaginationContext = createContext();
 
@@ -16,7 +43,18 @@ const PaginationContextProvider = (props) => {
         start: -1,
         end: -1,
         currentPage: 1,
-        wpClient: new ApolloClient({ uri: 'http://35.233.180.148/graphql' }),
+        // wpClient: new ApolloClient({ uri: 'https://35.233.180.148/graphql' }),
+        wpClient: new ApolloClient({
+            // link: authLink.concat(httpLink),
+            link: new HttpLink({
+              uri: "https://35.233.180.148/graphql",
+              credentials: 'same-origin'
+            }),
+            fetchOptions: {
+                mode: 'no-cors',
+              },
+            cache: new InMemoryCache({})
+          }),
         filterParams: {
             minPriceCtx: '0',
             maxPriceCtx: '0',
