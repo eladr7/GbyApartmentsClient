@@ -52,6 +52,7 @@ export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
   user: User;
+  jid: Scalars['String'];
 };
 
 export type AssignRoomMutationVariables = Exact<{
@@ -93,6 +94,7 @@ export type SignupMutation = (
   & { signup: (
     { __typename?: 'LoginResponse' }
     & Pick<LoginResponse, 'accessToken'>
+    & Pick<LoginResponse, 'jid'>
     & { user: (
       { __typename?: 'User' }
       & Pick<User, 'id' | 'email' | 'name'>
@@ -209,6 +211,7 @@ export const SignupDocument = gql`
     mutation Signup($token: String!) {
   signup(token: $token) {
     accessToken
+    jid
     user {
       id
       email
