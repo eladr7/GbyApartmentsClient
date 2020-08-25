@@ -29,7 +29,7 @@ const signupUser = async (token, signup, myServerClient) => {
   });
 
   if (response && response.data) {
-    setAccessToken(response.data.signup.accessToken);
+    setAccessToken(response.data.signup);
     navigate(`/app/profile`)
   }
 }

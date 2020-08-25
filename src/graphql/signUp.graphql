@@ -1,6 +1,7 @@
 mutation Signup($token: String!) {
   signup(token: $token) {
     accessToken
+    jid
     user {
       id
       email

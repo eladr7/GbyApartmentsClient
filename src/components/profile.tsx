@@ -24,7 +24,7 @@ const Profile: React.FC<MeQuery> = (data) => {
       <button
         onClick={async () => {
           await logout();
-          setAccessToken("");
+          setAccessToken({accessToken: "", jid: ""});
           await client!.resetStore();
           navigate(`/app/login`);
         }}

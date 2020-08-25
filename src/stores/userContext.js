@@ -10,6 +10,16 @@ import { ApolloLink, Observable } from "apollo-link";
 import { TokenRefreshLink } from "apollo-link-token-refresh";
 import jwtDecode from "jwt-decode";
 
+const getCookie = name => {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
 
 export const UserContext = createContext();
 
@@ -69,13 +79,22 @@ const UserContextProvider = (props) => {
                         }
                     },
                     fetchAccessToken: () => {
+                        const headers = {
+                            ...(getCookie('jid')
+                                ? {
+                                    authorization: `Bearer ${getCookie('jid')}`
+                                }
+                                : {})
+                        }
+                        
                         return fetch("https://apartments-server-ugdhobbyma-uw.a.run.app/refresh_token", {
                             method: "POST",
-                            credentials: "include"
+                            credentials: "include",
+                            headers: headers
                         });
                     },
-                    handleFetch: accessToken => {
-                        setAccessToken(accessToken);
+                    handleFetch: ({accessToken, jid}) => {
+                        setAccessToken({accessToken: accessToken, jid: jid});
                     },
                     handleError: err => {
                         console.warn("Your refresh token is invalid. Try to relogin");
