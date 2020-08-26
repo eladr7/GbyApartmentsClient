@@ -6,11 +6,15 @@ import PostText from './apartmentPreview/postText';
 
 
 const apartmentPreview = ({ node }) => {
+  // const {
+  //   featuredImage = {},
+  //   featuredImage: { node: { sourceUrl } },
+  //   content, slug, title, date
+  // } = node;
   const {
-    featuredImage = {},
-    featuredImage: { node: { sourceUrl } },
     content, slug, title, date
   } = node;
+  const imagesResolutions = node.featured_media.localFile.childImageSharp.fixed
 
   return (
     <article className="post-card">
@@ -20,18 +24,13 @@ const apartmentPreview = ({ node }) => {
       >
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </PostText>
-      {sourceUrl &&
-        <Link to={slug} className="preview-img">
-          {/* <Img
-            resolutions={resolutions}
-            style={{ width: `350px`, height: `200px` }}
-          /> */}
-          <img
-            src={sourceUrl}
-            style={{ width: `150px`, height: `95%` }}
-          />
+      <Link to={`/${slug}`} className="preview-img">
+          {imagesResolutions &&
+            <Img resolutions={imagesResolutions} 
+            style={{ width: `260px`, height: `130px` }}
+            />
+          }
         </Link>
-      }
     </article>
   );
 };

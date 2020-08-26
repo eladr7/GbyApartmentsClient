@@ -1,12 +1,13 @@
 import React from 'react';
 import config from '../../../config/siteConfig';
 import './footer.scss'
-import Pagination from './pagination';
-
-const Footer = ({pagination = false}) => {
+// import Pagination from './pagination';
+import Pagination2 from './pagination2';
+const Footer = ({pagination = false, currentPage = -1, numPages = -1}) => {
+// const Footer = () => {
     return (
         <div className="footer">
-            {pagination && <Pagination />}
+            {pagination && <Pagination2 currentPage={currentPage} numPages={numPages} />}
             <div className="footer-divider"></div>
             <footer className="footer-links">
                 <div className="links">

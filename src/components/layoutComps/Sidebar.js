@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import '../../layout/style/style.scss'
 import './sidebar/sidebar.scss'
 import SiteCard from './sidebar/siteCard';
-import SearchBar from './sidebar/SearchBar';
+// import SearchBar from './sidebar/SearchBar';
 import config from '../../../config/siteConfig';
 import { useSiteMetadata } from '../hooks'
 
@@ -41,7 +41,7 @@ const Sidebar = ({ pages }) => {
             <div className="sidebar-divider"></div>
             {navigationLinks(pages)}
             <div className="sidebar-divider"></div>
-            <SearchBar/>
+            {/* <SearchBar/> */}
         </div>
     )
 }

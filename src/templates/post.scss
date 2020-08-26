@@ -1,0 +1,24 @@
+.post-prev-next {
+  display: flex;
+  align-items: center;
+  font-size: 1rem * 1.75;
+  margin: 1rem * 1.25 * 5 0;
+
+  .post-prev,
+  .mobile-post-prev {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: auto;
+    padding-right: 1rem * 1.25;
+  }
+
+  .post-next,
+  .mobile-post-next {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    padding-left: 1rem * 1.25;
+  }
+}

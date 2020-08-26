@@ -18,7 +18,7 @@ import Footer from "./layoutComps/footer"
 // });
 
 
-export default function Layout({ children, pageTitle, headerText, postExcerpt = null, pagination = false }) {
+export default function Layout({ children, pageTitle, headerText, postExcerpt = null, pagination = false, currentPage = -1, numPages = -1 }) {
   const query = graphql`
   query {
     site {
@@ -46,7 +46,7 @@ export default function Layout({ children, pageTitle, headerText, postExcerpt = 
         {/* <ApolloProvider client={client}> */}
         {children}
         {/* </ApolloProvider> */}
-        <Footer pagination={pagination}/>
+        <Footer pagination={pagination} currentPage={currentPage} numPages={numPages}/>
       </div>
     </div>
   )
