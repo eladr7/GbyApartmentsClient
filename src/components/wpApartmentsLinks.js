@@ -20,7 +20,7 @@ const apartmentPreview = ({ node }) => {
     <article className="post-card">
       <PostText
         date={date}
-        head={<Link to={slug}>{title}</Link>}
+        head={<Link to={`/${slug}`}>{title}</Link>}
       >
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </PostText>
